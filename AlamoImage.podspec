@@ -20,23 +20,23 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "Guillermo Chiacchio" => "guillermo.chiacchio@gmail.com" }
   s.source           = { :git => "https://github.com/gchiacchio/AlamoImage.git", :tag => s.version.to_s }
-# s.source           = { :path => '/Users/guillermo/Developer/personal/AlamoImage', :tag => s.version.to_s }
+  #s.source           = { :path => '/Users/guillermo/Developer/personal/AlamoImage', :tag => s.version.to_s }
   s.default_subspec  = "Core"
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
 
-  s.subspec "Core" do |ss|
-    ss.source_files = 'Pod/Classes/ImageRequest.swift'
-    ss.dependency 'Alamofire', '~> 1.2'
+  s.subspec "Core" do |core|
+    core.source_files = 'Pod/Classes/ImageRequest.swift'
+    core.dependency 'Alamofire', '~> 1.2'
   end
 
-  s.subspec "ImageView" do |ss|
-    ss.source_files = 'Pod/Classes/ImageView.swift'
-    ss.frameworks = 'UIKit'
-    ss.dependency 'Alamofire', '~> 1.2'
-    ss.dependency 'AlamoImage/Core'
+  s.subspec "ImageView" do |imageView|
+    imageView.source_files = 'Pod/Classes/ImageView.swift'
+    imageView.frameworks = 'UIKit'
+    imageView.dependency 'Alamofire', '~> 1.2'
+    imageView.dependency 'AlamoImage/Core'
   end
 
 end

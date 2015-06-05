@@ -11,11 +11,11 @@
 //import Foundation
 //
 //
-//class Comment {
-//    let userFullname: String = "A"
-//    let userPictureURL: String = "B"
-//    let commentBody: String = "C"
-//}
+class Comment {
+    let userFullname: String = "A"
+    let userPictureURL: String = "B"
+    let commentBody: String = "C"
+}
 
 //func setAssociatedObject(object: AnyObject!, key: UnsafePointer<Void>, value: AnyObject!) {
 //    objc_setAssociatedObject(object, key, value, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))

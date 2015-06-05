@@ -19,8 +19,8 @@ Pod::Spec.new do |s|
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Guillermo Chiacchio" => "guillermo.chiacchio@gmail.com" }
-  # s.source           = { :git => "https://github.com/gchiacchio/AlamoImage.git", :tag => s.version.to_s }
-  s.source           = { :path => '/Users/guillermo/Developer/personal/AlamoImage', :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/gchiacchio/AlamoImage.git", :tag => s.version.to_s }
+# s.source           = { :path => '/Users/guillermo/Developer/personal/AlamoImage', :tag => s.version.to_s }
   s.default_subspec  = "Core"
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
@@ -29,24 +29,14 @@ Pod::Spec.new do |s|
 
   s.subspec "Core" do |ss|
     ss.source_files = 'Pod/Classes/ImageRequest.swift'
-    ss.resource_bundles = {
-      'AlamoImage' => ['Pod/Assets/*.png']
-    }
-
-    # ss.public_header_files = 'Pod/Classes/**/*.h'
     ss.dependency 'Alamofire', '~> 1.2'
   end
 
   s.subspec "ImageView" do |ss|
     ss.source_files = 'Pod/Classes/ImageView.swift'
-    ss.resource_bundles = {
-      'AlamoImage' => ['Pod/Assets/*.png']
-    }
-
-    # ss.public_header_files = 'Pod/Classes/**/*.h'
     ss.frameworks = 'UIKit'
     ss.dependency 'Alamofire', '~> 1.2'
-#ss.dependency 'AlamoImage/Core'
+    ss.dependency 'AlamoImage/Core'
   end
 
 end

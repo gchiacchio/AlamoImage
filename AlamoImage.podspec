@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "AlamoImage"
-  s.version          = "0.1.1"
+  s.version          = "0.2.0"
   s.summary          = "Image downloading with Alamofire"
   s.description      = <<-DESC
                        AlamoImage is a simple way to deal with image downloading using Alamofire
@@ -20,17 +20,23 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "Guillermo Chiacchio" => "guillermo.chiacchio@gmail.com" }
   s.source           = { :git => "https://github.com/gchiacchio/AlamoImage.git", :tag => s.version.to_s }
+  #s.source           = { :path => '/Users/guillermo/Developer/personal/AlamoImage', :tag => s.version.to_s }
+  s.default_subspec  = "Core"
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
 
-  s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'AlamoImage' => ['Pod/Assets/*.png']
-  }
+  s.subspec "Core" do |core|
+    core.source_files = 'Pod/Classes/ImageRequest.swift'
+    core.dependency 'Alamofire', '~> 1.2'
+  end
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.subspec "ImageView" do |imageView|
+    imageView.source_files = 'Pod/Classes/ImageView.swift'
+    imageView.frameworks = 'UIKit'
+    imageView.dependency 'Alamofire', '~> 1.2'
+    imageView.dependency 'AlamoImage/Core'
+  end
+
 end

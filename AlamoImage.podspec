@@ -10,12 +10,10 @@
 Pod::Spec.new do |s|
   s.name             = "AlamoImage"
   s.version          = "0.1.0"
-  s.summary          = "A short description of AlamoImage."
+  s.summary          = "Image downloading with Alamofire"
   s.description      = <<-DESC
-                       An optional longer description of AlamoImage
+                       AlamoImage is a simple way to deal with image downloading using Alamofire
 
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
                        DESC
   s.homepage         = "https://github.com/gchiacchio/AlamoImage"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"

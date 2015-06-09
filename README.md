@@ -8,12 +8,12 @@
 
 ### Requesting an image 
 ```swift
-    Alamofire.request(.GET, "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40").responseImage() {
-        (request, _, image, error) in
-        if error == nil && image != nil {
-            imageView.image = image
-        }
-    }
+Alamofire.request(.GET, "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40")
+         .responseImage() { (request, _, image, error) in
+             if error == nil && image != nil {
+                 imageView.image = image
+         }
+}
 ```
 
 ### UIImageView extensions
@@ -21,29 +21,41 @@
 The simplest way to request an image is with just an ```URLStringConvertible``` instance.
 
 ```swift
-    imageView.requestImage("https://avatars3.githubusercontent.com/u/7842501?v=3&s=40")
+let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
+imageView.requestImage(imageURL)
 ```
 
 You can also put a placeholder image. This image will be in place while the request is not responded, or if it resulted in error.
 
 ```swift
-    imageView.requestImage("https://avatars3.githubusercontent.com/u/7842501?v=3&s=40", placeholder:UIImage(named:"smile.png"))
+let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
+imageView.requestImage(imageURL, placeholder:UIImage(named:"smile.png"))
 ```
 
 If you want more control to handle the views, you can also use the ```success``` and ```failure``` parameters. Here is an example
 
 ```swift
-    self.imageView.requestImage(imageURL, placeholder:UIImage(named: "someImage.png"), success: { (imageView, _, _, image) in
-        UIView.transitionWithView(imageView!, duration: 1.0, options: .TransitionCrossDissolve, animations: {
-            imageView!.image = image}, completion: {(_) in})
-        
-    })
+let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
+self.imageView.requestImage(imageURL, 
+                            placeholder: UIImage(named: "someImage.png"), 
+                            success: 
+    { (imageView, _, _, image) in
+        UIView.transitionWithView(imageView!, 
+                                  duration: 1.0, 
+                                  options: .TransitionCrossDissolve, 
+                                  animations: {
+                                      imageView!.image = image
+                                  }, 
+                                  completion: {(_) in}
+                                  )   
+    }
+)
 ```
 
 Every UIImageView has his own reference to the last started request. It is automatically cancelled every time a new request is made, but you can cancel it at any moment.
 
 ```swift
-    self.imageView.request?.cancel()
+self.imageView.request?.cancel()
 ```
 
 ## Requirements

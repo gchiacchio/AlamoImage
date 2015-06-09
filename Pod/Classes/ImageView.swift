@@ -1,6 +1,6 @@
 //
 //  ImageView.swift
-//  Pods
+//  AlamoImage
 //
 //  Created by Guillermo Chiacchio on 6/5/15.
 //
@@ -9,8 +9,17 @@
 import UIKit
 import Alamofire
 import Foundation
+import AlamoImage
 
-var imageRequestPropertyKey = "AlamoImage.ImageRequest"
+func setAssociatedObject(object: AnyObject!, key: UnsafePointer<Void>, value: AnyObject!) {
+    objc_setAssociatedObject(object, key, value, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
+}
+
+func associatedObject(object: AnyObject!, key: UnsafePointer<Void>) -> AnyObject! {
+    return objc_getAssociatedObject(object, key)
+}
+
+var imageRequestPropertyKey = "AlamoImage.ImageView.Request"
 extension UIImageView {
     public var request: Alamofire.Request? {
         get {
@@ -31,16 +40,16 @@ extension UIImageView {
     {
         self.image = placeholder
         self.request?.cancel()
-        if let cachedImage = Alamofire.Request.imageCache?.objectForKey(URLStringConv.URLString) as? UIImage {
+        if let cachedImage = AlamoImage.imageCache?.objectForKey(URLStringConv.URLString) as? UIImage {
             success(self, nil, nil, cachedImage)
         } else {
             self.request = Alamofire.request(.GET, URLStringConv).validate().responseImage() {
-                (request, response, image, error) in
+                (req, response, image, error) in
                 if error == nil && image != nil {
-                    Alamofire.Request.imageCache?.setObject(image!, forKey: URLStringConv.URLString)
-                    success(self, request, response, image)
+                    AlamoImage.imageCache?.setObject(image!, forKey: URLStringConv.URLString)
+                    success(self, req, response, image)
                 } else {
-                    failure(self, request, response, error)
+                    failure(self, req, response, error)
                 }
             }
         }

@@ -20,7 +20,6 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "Guillermo Chiacchio" => "guillermo.chiacchio@gmail.com" }
   s.source           = { :git => "https://github.com/gchiacchio/AlamoImage.git", :tag => s.version.to_s }
-  #s.source           = { :path => '/Users/guillermo/Developer/personal/AlamoImage', :tag => s.version.to_s }
   s.default_subspec  = "Core"
   s.social_media_url = 'https://twitter.com/Gvi113'
 

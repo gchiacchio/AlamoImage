@@ -21,6 +21,7 @@ func associatedObject(object: AnyObject!, key: UnsafePointer<Void>) -> AnyObject
 
 var imageRequestPropertyKey = "AlamoImage.ImageView.Request"
 extension UIImageView {
+    /// A reference to handle the `Request`, if any, for the `UIImage` instance.
     public var request: Alamofire.Request? {
         get {
             return associatedObject(self, &imageRequestPropertyKey) as! Alamofire.Request?
@@ -30,6 +31,15 @@ extension UIImageView {
         }
     }
     
+    /**
+    Creates a request using `Alamofire`, and sets the returned image into the `UIImageview` instance. This method cancels any previous request for the same `UIImageView` instance
+    
+    :param: URLStringConv The URL for the image.
+    :param: placeholder An optional `UIImage` instance to be set until the requested image is available.
+    :param: success The code to be executed if the request finishes successfully.
+    :param: failure The code to be executed if the request finishes with some error.
+    
+    */
     public func requestImage(URLStringConv: URLStringConvertible, placeholder: UIImage? = nil,
         success: (UIImageView?, NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void = { (imageView, _, _, theImage) in
             

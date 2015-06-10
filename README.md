@@ -23,21 +23,21 @@ Alamofire.request(.GET, imageURL)
 
 ### UIImageView extensions
 
-The simplest way to request an image is with just an `URLStringConvertible` instance.
+The simplest way to request an image is with just an **`URLStringConvertible`** instance.
 
 ```swift
 let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
 self.imageView.requestImage(imageURL)
 ```
 
-You can also put a `placeholder` image. This image will be in place while the request is not responded, or if it resulted in error.
+You can also put a **`placeholder`** image. This image will be in place while the request is not responded, or if it resulted in error.
 
 ```swift
 let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
 self.imageView.requestImage(imageURL, placeholder:UIImage(named:"smile.png"))
 ```
 
-If you want more control to handle the views, you can also use the `success` and `failure` parameters. Here is an example
+If you want more control to handle the views, you can also use the **`success`** and **`failure`** parameters. Here is an example
 
 ```swift
 let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
@@ -57,7 +57,7 @@ self.imageView.requestImage(imageURL,
 )
 ```
 
-Every UIImageView has his own reference to the last started request. It is automatically cancelled every time a new request is made, but you can cancel it at any moment.
+Every UIImageView has his own reference to the last started request. It is automatically cancelled every time a new request is made, but you can **`cancel`** it at any moment.
 
 ```swift
 self.imageView.request?.cancel()
@@ -68,12 +68,10 @@ self.imageView.request?.cancel()
 - iOS 8.0+
 - Xcode 6.1
 
-## Installation
-
-### Cocoapods
+## Installation through CocoaPods
 
 AlamoImage is available through [CocoaPods](http://cocoapods.org). To install
-it, simply update your Podfile to match the following (note that AlamoImage depends on Alamofire):
+it, simply update your [Podfile](https://guides.cocoapods.org/using/the-podfile.html) to match the following (note that AlamoImage depends on [Alamofire](https://cocoapods.org/pods/Alamofire)):
 
 ```
 source 'https://github.com/CocoaPods/Specs.git'

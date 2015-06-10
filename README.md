@@ -7,7 +7,7 @@
 ## Usage
 
 1. Put `import AlamoImage` at the top of your swift file
-2. Have a place to put the image, e.g. `let imageView : UIImageView`
+2. Have a place to put the image, e.g. `let imageView = UIImageView()`
 3. Use any of the following methods:
 
 ### Requesting an image 

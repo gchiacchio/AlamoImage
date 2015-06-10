@@ -6,33 +6,38 @@
 
 ## Usage
 
+1. Put `import AlamoImage` at the top of your swift file
+2. Have a place to put the image, e.g. `let imageView : UIImageView`
+3. Use any of the following methods:
+
 ### Requesting an image 
 ```swift
-Alamofire.request(.GET, "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40")
+let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
+Alamofire.request(.GET, imageURL)
          .responseImage() { (request, _, image, error) in
              if error == nil && image != nil {
-                 imageView.image = image
+                 self.imageView.image = image
          }
-}
+}  
 ```
 
 ### UIImageView extensions
 
-The simplest way to request an image is with just an ```URLStringConvertible``` instance.
+The simplest way to request an image is with just an `URLStringConvertible` instance.
 
 ```swift
 let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
-imageView.requestImage(imageURL)
+self.imageView.requestImage(imageURL)
 ```
 
-You can also put a placeholder image. This image will be in place while the request is not responded, or if it resulted in error.
+You can also put a `placeholder` image. This image will be in place while the request is not responded, or if it resulted in error.
 
 ```swift
 let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
-imageView.requestImage(imageURL, placeholder:UIImage(named:"smile.png"))
+self.imageView.requestImage(imageURL, placeholder:UIImage(named:"smile.png"))
 ```
 
-If you want more control to handle the views, you can also use the ```success``` and ```failure``` parameters. Here is an example
+If you want more control to handle the views, you can also use the `success` and `failure` parameters. Here is an example
 
 ```swift
 let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"

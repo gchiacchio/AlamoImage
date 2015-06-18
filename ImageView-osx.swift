@@ -8,7 +8,6 @@
 
 import Alamofire
 import Foundation
-import AlamoImage
 
 #if os(OSX)
 

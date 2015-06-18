@@ -43,6 +43,7 @@ Pod::Spec.new do |s|
   s.subspec "ImageView" do |imageView|
     imageView.ios.source_files = 'ImageView-ios.swift'
     imageView.osx.source_files = 'ImageView-osx.swift'
+    imageView.dependency 'AlamoImage/Core'
   end
 
 end

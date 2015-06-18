@@ -9,14 +9,7 @@
 import Alamofire
 import Foundation
 
-/**
-
-Image cache used by some of the extensions, if present, to speed up the request. Default value is nil, so user should set an instance to start caching images.
-
-  AlamoImage.imageCache = NSCache()
-
-*/
-public var imageCache: NSCache? = nil
+#if os(iOS)
 
 extension Alamofire.Request {
 
@@ -45,3 +38,4 @@ extension Alamofire.Request {
         })
     }
 }
+#endif

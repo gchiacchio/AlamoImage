@@ -6,20 +6,12 @@
 //
 //
 
-import UIKit
 import Alamofire
 import Foundation
 import AlamoImage
 
-func setAssociatedObject(object: AnyObject!, key: UnsafePointer<Void>, value: AnyObject!) {
-    objc_setAssociatedObject(object, key, value, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
-}
-
-func associatedObject(object: AnyObject!, key: UnsafePointer<Void>) -> AnyObject! {
-    return objc_getAssociatedObject(object, key)
-}
-
-var imageRequestPropertyKey = "AlamoImage.ImageView.Request"
+#if os(iOS)
+    
 extension UIImageView {
     /// A reference to handle the `Request`, if any, for the `UIImage` instance.
     public var request: Alamofire.Request? {
@@ -48,15 +40,17 @@ extension UIImageView {
         failure: (UIImageView?, NSURLRequest?, NSHTTPURLResponse?, NSError?) -> Void = { (_, _, _, _) in }
         )
     {
-        self.image = placeholder
+        if (placeholder != nil) {
+            self.image = placeholder
+        }
         self.request?.cancel()
-        if let cachedImage = AlamoImage.imageCache?.objectForKey(URLStringConv.URLString) as? UIImage {
+        if let cachedImage = imageCache?.objectForKey(URLStringConv.URLString) as? UIImage {
             success(self, nil, nil, cachedImage)
         } else {
             self.request = Alamofire.request(.GET, URLStringConv).validate().responseImage() {
                 (req, response, image, error) in
                 if error == nil && image != nil {
-                    AlamoImage.imageCache?.setObject(image!, forKey: URLStringConv.URLString)
+                    imageCache?.setObject(image!, forKey: URLStringConv.URLString)
                     success(self, req, response, image)
                 } else {
                     failure(self, req, response, error)
@@ -65,3 +59,4 @@ extension UIImageView {
         }
     }
 }
+#endif

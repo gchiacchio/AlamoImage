@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "AlamoImage"
-  s.version          = "0.2.0"
+  s.version          = "0.2.1"
   s.summary          = "Image downloading with Alamofire"
   s.description      = <<-DESC
                        AlamoImage is a simple way to deal with image downloading using Alamofire

@@ -11,6 +11,9 @@ import Foundation
 
 #if os(OSX)
 
+/**
+Extension to support and handle the request of a remote image, to be downloaded and set. OSX Only.
+*/
 extension NSImageView {
     /// A reference to handle the `Request`, if any, for the `NSImage` instance.
     public var request: Alamofire.Request? {

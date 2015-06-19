@@ -10,7 +10,10 @@ import Alamofire
 import Foundation
 
 #if os(OSX)
-    
+
+/**
+Alamofire.Request extension to support a handler for images. OSX Only.
+*/
 extension Alamofire.Request {
     
     class func imageResponseSerializer() -> Serializer {

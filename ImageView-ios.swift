@@ -10,7 +10,10 @@ import Alamofire
 import Foundation
 
 #if os(iOS)
-    
+
+/**
+Extension to support and handle the request of a remote image, to be downloaded and set. iOS Only.
+*/
 extension UIImageView {
     /// A reference to handle the `Request`, if any, for the `UIImage` instance.
     public var request: Alamofire.Request? {
@@ -32,11 +35,11 @@ extension UIImageView {
     
     */
     public func requestImage(URLStringConv: URLStringConvertible, placeholder: UIImage? = nil,
-        success: (UIImageView?, NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void = { (imageView, _, _, theImage) in
+        success: (UIImageView, NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void = { (imageView, _, _, theImage) in
             
-            imageView?.image = theImage
+            imageView.image = theImage
         },
-        failure: (UIImageView?, NSURLRequest?, NSHTTPURLResponse?, NSError?) -> Void = { (_, _, _, _) in }
+        failure: (UIImageView, NSURLRequest?, NSHTTPURLResponse?, NSError?) -> Void = { (_, _, _, _) in }
         )
     {
         if (placeholder != nil) {

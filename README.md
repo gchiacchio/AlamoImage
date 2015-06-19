@@ -7,10 +7,13 @@
 ## Usage
 
 1. Put `import AlamoImage` at the top of your swift file
-2. Have a place to put the image, e.g. `let imageView = UIImageView()`
+2. Have a place to put the image
+		<br/>*iOS*:<pre><code>`let imageView = UIImageView()`</code></pre>
+		<br/>*OSX*:<pre><code>`let imageView = NSImageView()`</code></pre>		
 3. Use any of the following methods:
 
 ### Requesting an image 
+
 ```swift
 let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
 Alamofire.request(.GET, imageURL)
@@ -21,8 +24,9 @@ Alamofire.request(.GET, imageURL)
 }  
 ```
 
-### UIImageView extensions
+### UIImageView and NSImageView extensions
 
+#### Basic
 The simplest way to request an image is with just an **`URLStringConvertible`** instance.
 
 ```swift
@@ -30,34 +34,39 @@ let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
 self.imageView.requestImage(imageURL)
 ```
 
+#### Placeholder
 You can also put a **`placeholder`** image. This image will be in place while the request is not responded, or if it resulted in error.
 
 ```swift
 let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
-self.imageView.requestImage(imageURL, placeholder:UIImage(named:"smile.png"))
+let placeholder = UIImage(named:"smile.png") // In OSX use NSImage(named:"smile.png")
+self.imageView.requestImage(imageURL, placeholder:placeholder)
 ```
 
-If you want more control to handle the views, you can also use the **`success`** and **`failure`** parameters. Here is an example
+#### Handling results
+If you want more control to handle the views, you can also use the **`success`** and **`failure`** closure parameters. Here is an example
 
 ```swift
 let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
+let placeholder = UIImage(named:"smile.png") // In OSX use NSImage(named:"smile.png")
 self.imageView.requestImage(imageURL, 
-                            placeholder: UIImage(named: "someImage.png"), 
+                            placeholder: placeholder, 
                             success: 
     { (imageView, _, _, image) in
-        UIView.transitionWithView(imageView!, 
+        UIView.transitionWithView(imageView, 
                                   duration: 1.0, 
                                   options: .TransitionCrossDissolve, 
                                   animations: {
-                                      imageView!.image = image
+                                      imageView.image = image
                                   }, 
-                                  completion: {(_) in}
+                                  completion: nil
                                   )   
     }
 )
 ```
 
-Every UIImageView has his own reference to the last started request. It is automatically cancelled every time a new request is made, but you can **`cancel`** it at any moment.
+#### Canceling
+Every `UIImageView` (`NSImageView` in OSX) has his own reference to the last started **`request`**. It is automatically cancelled every time a new request is made, but you can **`cancel`** it at any moment.
 
 ```swift
 self.imageView.request?.cancel()
@@ -65,8 +74,8 @@ self.imageView.request?.cancel()
 
 ## Requirements
 
-- iOS 8.0+
-- Xcode 6.1
+- iOS 8.0+ / Mac OS X 10.9+
+- Xcode 6.3
 
 ## Installation through CocoaPods
 
@@ -81,7 +90,7 @@ use_frameworks!
 pod 'Alamofire', '~> 1.2'
 pod 'AlamoImage'
 
-# Include the following only if you want to use UIImageView extensions with AlamoImage
+# Include the following only if you want to use UIImageView (NSImageView) extensions with AlamoImage
 pod 'AlamoImage/ImageView'
 ```
 

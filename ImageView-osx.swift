@@ -26,7 +26,7 @@ extension NSImageView {
     }
     
     /**
-    Creates a request using `Alamofire`, and sets the returned image into the `NSImageview` instance. This method cancels any previous request for the same `NSImageView` instance
+    Creates a request using `Alamofire`, and sets the returned image into the `NSImageview` instance. This method cancels any previous request for the same `NSImageView` instance. It also automatically adds and retrieves the image to/from the global `AlamoImage.imageCache` cache instance if any.
     
     :param: URLStringConv The URL for the image.
     :param: placeholder An optional `NSImage` instance to be set until the requested image is available.
@@ -35,30 +35,27 @@ extension NSImageView {
     
     */
     public func requestImage(URLStringConv: URLStringConvertible, placeholder: NSImage? = nil,
-        success: (NSImageView, NSURLRequest?, NSHTTPURLResponse?, NSImage?) -> Void = { (imageView, _, _, theImage) in
+        success _success: (NSImageView, NSURLRequest?, NSHTTPURLResponse?, NSImage?) -> Void = { (imageView, _, _, theImage) in
             
             imageView.image = theImage
         },
-        failure: (NSImageView, NSURLRequest?, NSHTTPURLResponse?, NSError?) -> Void = { (_, _, _, _) in }
+        failure _failure: (NSImageView, NSURLRequest?, NSHTTPURLResponse?, NSError?) -> Void = { (_, _, _, _) in }
         )
     {
         if (placeholder != nil) {
             self.image = placeholder
         }
         self.request?.cancel()
-        if let cachedImage = AlamoImage.imageCache?.objectForKey(URLStringConv.URLString) as? NSImage {
-            success(self, nil, nil, cachedImage)
-        } else {
-            self.request = Alamofire.request(.GET, URLStringConv).validate().responseImage() {
-                (req, response, image, error) in
-                if error == nil && image != nil {
-                    AlamoImage.imageCache?.setObject(image!, forKey: URLStringConv.URLString)
-                    success(self, req, response, image)
-                } else {
-                    failure(self, req, response, error)
-                }
+        
+        self.request = NSImage.requestImage(URLStringConv,
+            success: { (req, res, img) in
+                _success(self, req, res, img)
+            },
+            failure: { (req, res, err) in
+                _failure(self, req, res, err)
             }
-        }
+        )
     }
 }
+
 #endif

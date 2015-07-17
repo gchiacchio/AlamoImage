@@ -15,7 +15,7 @@
 ### Requesting an image 
 
 ```swift
-let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
+let imageURL = "http://httpbin.org/image"
 Alamofire.request(.GET, imageURL)
          .responseImage() { (request, _, image, error) in
              if error == nil && image != nil {
@@ -30,7 +30,7 @@ Alamofire.request(.GET, imageURL)
 The simplest way to request an image is with just an **`URLStringConvertible`** instance.
 
 ```swift
-let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
+let imageURL = "http://httpbin.org/image"
 self.imageView.requestImage(imageURL)
 ```
 
@@ -38,7 +38,7 @@ self.imageView.requestImage(imageURL)
 You can also put a **`placeholder`** image. This image will be in place while the request is not responded, or if it resulted in error.
 
 ```swift
-let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
+let imageURL = "http://httpbin.org/image"
 let placeholder = UIImage(named:"smile.png") // In OSX use NSImage(named:"smile.png")
 self.imageView.requestImage(imageURL, placeholder:placeholder)
 ```
@@ -47,7 +47,7 @@ self.imageView.requestImage(imageURL, placeholder:placeholder)
 If you want more control to handle the views, you can also use the **`success`** and **`failure`** closure parameters. Here is an example
 
 ```swift
-let imageURL = "https://avatars3.githubusercontent.com/u/7842501?v=3&s=40"
+let imageURL = "http://httpbin.org/image"
 let placeholder = UIImage(named:"smile.png") // In OSX use NSImage(named:"smile.png")
 self.imageView.requestImage(imageURL, 
                             placeholder: placeholder, 
@@ -70,6 +70,20 @@ Every `UIImageView` (`NSImageView` in OSX) has his own reference to the last sta
 
 ```swift
 self.imageView.request?.cancel()
+```
+
+
+### UIImage and NSImage extensions
+UIImageView and NSImageView extensions should be enough most of the time. But in some cases you may need to request an UIImage or NSImage without having an UIImageView or NSImageView instance.
+
+#### Basic
+The simplest way to request an image is with just an **`URLStringConvertible`** instance.
+
+```swift
+// inside some class
+var photo: UIImage? // In OSX use NSImage
+let imageURL = "http://httpbin.org/image"
+UIImage.requestImage(imageURL){self.photo = $0} // In OSX use NSImage
 ```
 
 ## Requirements

@@ -36,7 +36,7 @@ extension Request {
     :returns: The request.
     */
     public func responseImage(completionHandler: (NSURLRequest, NSHTTPURLResponse?, NSImage?, NSError?) -> Void) -> Self {
-        return response(serializer: Request.imageResponseSerializer(), completionHandler: completionHandler)
+        return response(responseSerializer: Request.imageResponseSerializer(), completionHandler: completionHandler)
     }
 }
 

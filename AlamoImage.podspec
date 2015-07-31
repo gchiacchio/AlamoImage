@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "AlamoImage"
-  s.version          = "0.3.0"
+  s.version          = "0.3.5"
   s.summary          = "Image downloading with Alamofire"
   s.description      = <<-DESC
                        AlamoImage is a simple way to deal with image downloading using Alamofire
@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
   s.subspec "Common" do |common|
     common.ios.source_files = 'Common.swift'
     common.osx.source_files = 'Common.swift'
-    common.dependency 'Alamofire', '~> 1.2'
+    common.dependency 'Alamofire', '~> 1.3'
   end
 
   s.subspec "Core" do |core|

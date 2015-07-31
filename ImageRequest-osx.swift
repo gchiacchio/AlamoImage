@@ -14,10 +14,10 @@ import Foundation
 /**
 Alamofire.Request extension to support a handler for images. OSX Only.
 */
-extension Alamofire.Request {
+extension Request {
     
-    class func imageResponseSerializer() -> Serializer {
-        return { request, response, data in
+    class func imageResponseSerializer() -> GenericResponseSerializer<NSImage> {
+        return GenericResponseSerializer { request, response, data in
             if data == nil {
                 return (nil, nil)
             }
@@ -36,9 +36,7 @@ extension Alamofire.Request {
     :returns: The request.
     */
     public func responseImage(completionHandler: (NSURLRequest, NSHTTPURLResponse?, NSImage?, NSError?) -> Void) -> Self {
-        return response(serializer: Request.imageResponseSerializer(), completionHandler: { (request, response, image, error) in
-            completionHandler(request, response, image as? NSImage, error)
-        })
+        return response(serializer: Request.imageResponseSerializer(), completionHandler: completionHandler)
     }
 }
 

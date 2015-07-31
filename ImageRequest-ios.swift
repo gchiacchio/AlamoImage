@@ -16,8 +16,8 @@ Alamofire.Request extension to support a handler for images. iOS Only
 */
 extension Request {
 
-    class func imageResponseSerializer() -> Serializer {
-        return { request, response, data in
+    class func imageResponseSerializer() -> GenericResponseSerializer<UIImage> {
+        return GenericResponseSerializer { request, response, data in
             if data == nil {
                 return (nil, nil)
             }
@@ -36,9 +36,7 @@ extension Request {
     :returns: The request.
     */
     public func responseImage(completionHandler: (NSURLRequest, NSHTTPURLResponse?, UIImage?, NSError?) -> Void) -> Self {
-        return response(serializer: Request.imageResponseSerializer(), completionHandler: { (request, response, image, error) in
-            completionHandler(request, response, image as? UIImage, error)
-        })
+        return response(responseSerializer: Request.imageResponseSerializer(), completionHandler:completionHandler)
     }
 }
 
